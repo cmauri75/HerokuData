@@ -11,8 +11,7 @@
     <groupId>com.example</groupId>
     <artifactId>Dataload</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Dataload</name>
-    <description>Dataload</description>
+    <name>HerokuData</name>
     <properties>
         <java.version>11</java.version>
     </properties>
@@ -40,7 +39,7 @@
                 <artifactId>heroku-maven-plugin</artifactId>
                 <version>3.0.3</version>
                 <configuration>
-                    <appName>sushi</appName>
+                    <appName>dataload-app</appName>
                 </configuration>
             </plugin>
         </plugins>
