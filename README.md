@@ -28,6 +28,7 @@ This is faster
 
 * ``heroku logs --tail`` let you stay in tail on remote log 
 * ``heroku run bash`` connects to remote server
+* ``heroku congif`` get information about plugins
   
 NB: system.properties let heroku to detect project type and deploy accordingly
 
@@ -38,4 +39,10 @@ Lot available, list [here](https://elements.heroku.com/addons)
 * ``heroku config`` gives you information about created service connect url 
 This creates a service on amazon, you can connect ad user outside heroku
 
-* Now add redis addon: ``heroku addons:create redistogo:nano``
+* Add redis addon: ``heroku addons:create redistogo:nano``
+
+* Than put also kafka: ``heroku addons:create cloudkarafka:ducky``
+Unfortunally doesn't work due to free plan
+
+* Send mail: ``heroku addons:create mailtrap:unpaid``
+
