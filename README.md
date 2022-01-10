@@ -19,11 +19,18 @@ sudo apt-get install heroku
 
 * Provision an heorku app: ``heroku create``
 * If you like use a better than random name: ``heroku apps:rename DataloadApp``, keep appName tag in pom.xml aligned
-* Than use maven plugin to deploy: ``mvn clean heroku:deploy`` [reference here](https://devcenter.heroku.com/articles/deploying-java-applications-with-the-heroku-maven-plugin)
-* Another way to deploy is just push on heroku repo: ``git push heroku master`` It will detect app type and automatically deploy, pay attention to branch name
 
+* Than use maven plugin to deploy: ``mvn clean heroku:deploy`` [reference here](https://devcenter.heroku.com/articles/deploying-java-applications-with-the-heroku-maven-plugin)
+This is preferrable if you want to deploy a WIP version with no need to push
+
+* Another way to deploy is just push on heroku repo: ``git push heroku master`` It will detect app type and automatically deploy, pay attention to branch name
+This is faster
+
+* ``heroku logs --tail`` let you stay in tail on remote log 
+* ``heroku run bash`` connects to remote server
+  
 NB: system.properties let heroku to detect project type and deploy accordingly
 
 * Now add a new service, ae postgresql: ``heroku addons:create heroku-postgresql``
-* ``heroku config`` gives you information about created service connect url
-
+* ``heroku config`` gives you information about created service connect url 
+This creates a service on amazon, you can connect ad user outside heorku
