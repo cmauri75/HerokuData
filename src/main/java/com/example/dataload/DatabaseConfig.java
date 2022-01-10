@@ -25,8 +25,11 @@ public class DatabaseConfig {
     @Value("${spring.datasource.username}")
     private String username;
 
-    @Value("${spring.datasource.password}")
+    @Value("${springDatasourcePassword}")
     private String password;
+
+    @Value("${springRedisPassword}")
+    private String redisPassword;
 
     @Bean
     public DataSource dataSource() {
@@ -50,7 +53,9 @@ public class DatabaseConfig {
         configuration.setPort(properties.getPort());
         //DON'T SET!
         //configuration.setUsername(properties.getUsername());
-        configuration.setPassword(properties.getPassword());
+
+        //configuration.setPassword(properties.getPassword());
+        configuration.setPassword(redisPassword);
 
         return new JedisConnectionFactory(configuration);
     }

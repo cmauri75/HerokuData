@@ -28,7 +28,7 @@ This is faster
 
 * ``heroku logs --tail`` let you stay in tail on remote log 
 * ``heroku run bash`` connects to remote server
-* ``heroku congif`` get information about plugins
+* ``heroku config`` get information about plugins
   
 NB: system.properties let heroku to detect project type and deploy accordingly
 
@@ -37,7 +37,10 @@ Lot available, list [here](https://elements.heroku.com/addons)
 
 * Now add a new service, ae postgresql: ``heroku addons:create heroku-postgresql``
 * ``heroku config`` gives you information about created service connect url 
+
 This creates a service on amazon, you can connect ad user outside heroku
+
+A shell is available by:  ``heroku pg:psql``
 
 * Add redis addon: ``heroku addons:create redistogo:nano``
 
@@ -46,3 +49,15 @@ Unfortunally doesn't work due to free plan
 
 * Send mail: ``heroku addons:create mailtrap:unpaid``
 
+## helpfull
+
+* local start using heroku env: ``heroku local:start`` This works only if Procfile is provided
+* scale number of microserviced: ``heroku ps:scale web=0``
+* list of addons created: ``heroku addons``
+
+## Pwd management
+Password are stored in .env file (not pushed). Spring-boot manage it transparently like application.properties entries.
+
+IDE can be configured setting run configuration
+
+In heroku use: ``heroku config:set`` A good configuration can avoid it if it uses config created by module creation
