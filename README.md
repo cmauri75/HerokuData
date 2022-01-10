@@ -51,7 +51,8 @@ Unfortunally doesn't work due to free plan
 
 ## helpfull
 
-* local start using heroku env: ``heroku local:start`` This works only if Procfile is provided
+* local start using heroku env: ``heroku local:start`` This works only if Procfile is provided. Attention: don't push it or app in heroku will crash, maybe it will be fixed in future
+content is: web: java -jar target/Dataload-0.0.1-SNAPSHOT.jar
 * scale number of microserviced: ``heroku ps:scale web=0``
 * list of addons created: ``heroku addons``
 
