@@ -1,4 +1,4 @@
-package com.example.dataload;
+package com.example.dataload.support.relational;
 
 import javax.persistence.*;
 
@@ -12,11 +12,9 @@ public class User {
     private String username;
 
     public User() {
-        super();
     }
 
     public User(String username) {
-        super();
         this.username = username;
     }
 
