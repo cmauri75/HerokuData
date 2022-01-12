@@ -1,0 +1,12 @@
+[Unit]
+Description=HerokuData Spring Boot app
+After=network.target
+StartLimitIntervalSec=0
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=app
+ExecStart=/usr/bin/java -jar /home/app/release/Dataload-0.0.1-SNAPSHOT.jar
+[Install]
+WantedBy=multi-user.target

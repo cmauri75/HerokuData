@@ -14,7 +14,7 @@ sudo apt-get install heroku
 * If not create one: ``heroku keys:add``
 
 
-* Create a spring web app (in example a simple Dataload app)
+* Create a spring web app (in example a simple Dataload app) check it at: https://dataload-app.herokuapp.com/data/ok
 
 
 * Provision an heorku app: ``heroku create``
@@ -62,3 +62,42 @@ Password are stored in .env file (not pushed). Spring-boot manage it transparent
 IDE can be configured setting run configuration
 
 In heroku use: ``heroku config:set`` A good configuration can avoid it if it uses config created by module creation
+
+# DigitalOceanData
+This case release spring-boot-app on Digital Ocean PaaS. App will use external services by Heroku because does not provide free tier for that.
+
+App will be loaded inside a linux virtual machine stored as fat jar app and controlled via systemrc service
+
+* data-spring-boot.service file control it
+* Create a Droplet (linux) and ssh root@ in it, in my case: 206.189.25.252
+* that install java
+```
+sudo apt update
+sudo apt install openjdk-11-jre-headless
+useradd -m app
+passwd app
+usermod --shell /bin/bash
+su - apphttps://dataload-app.herokuapp.com/data/ok
+vi .bashrc
+--now add exports in digitalOceanEnv.sh with password for external services
+mkdir release
+exit
+```
+
+In local shell:
+```
+scp data-spring-boot.service root@206.189.25.252:/etc/systemd/system
+scp target/Dataload-0.0.1-SNAPSHOT.jar app@206.189.25.252:/home/app/release/
+```
+
+Back in remote
+```
+systemctl edit myservice
+-- add data in digitalOceanEnv.conf
+systemctl start data-spring-boot.service
+
+systemctl status data-spring-boot.service
+journalctl -u data-spring-boot.service
+```
+
+try it on: http://206.189.25.252:8080/data/ok
