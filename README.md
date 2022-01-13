@@ -16,7 +16,6 @@ sudo apt-get install heroku
 
 * Create a spring web app (in example a simple Dataload app) check it at: https://dataload-app.herokuapp.com/data/ok
 
-
 * Provision an heorku app: ``heroku create``
 * If you like use a better than random name: ``heroku apps:rename DataloadApp``, keep appName tag in pom.xml aligned
 
@@ -59,11 +58,13 @@ content is: web: java -jar target/Dataload-0.0.1-SNAPSHOT.jar
 ## Pwd management
 Password are stored in .env file (not pushed). Spring-boot manage it transparently like application.properties entries.
 
-IDE can be configured setting run configuration
+- IDE can be configured setting run configuration
 
-In heroku use: ``heroku config:set`` A good configuration can avoid it if it uses config created by module creation
+- In local build/run first run ``export KEY=val`` for all properties
 
-# DigitalOceanData
+- In heroku use: ``heroku config:set`` A good configuration can avoid it if it uses config created by module creation
+
+# DigitalOceanData - PaaS
 This case release spring-boot-app on Digital Ocean PaaS. App will use external services by Heroku because does not provide free tier for that.
 
 App will be loaded inside a linux virtual machine stored as fat jar app and controlled via systemrc service
@@ -101,3 +102,12 @@ journalctl -u data-spring-boot.service
 ```
 
 try it on: http://206.189.25.252:8080/data/ok
+
+# DigitalOceanData - Kubernetes
+Create an image, a pod and deploy in kubernates env 
+
+* modify pom.xml in order to create docker image on build (pay attention to heroku conflict, maybe comment) and also provide Dockerfile. NB: you can local test via: 
+``docker run -p8080:8080 --env-file .env example/dataload:0.0.1-SNAPSHOT``
+
+* 
+
