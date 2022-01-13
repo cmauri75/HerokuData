@@ -1,6 +1,8 @@
 .env*
 Procfile
 digitalOceanEnv.conf
+k8s/secret.yaml
+k8s/dataload-pod-pwd.yaml
 
 HELP.md
 target/

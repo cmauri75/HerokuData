@@ -108,6 +108,37 @@ Create an image, a pod and deploy in kubernates env
 
 * modify pom.xml in order to create docker image on build (pay attention to heroku conflict, maybe comment) and also provide Dockerfile. NB: you can local test via: 
 ``docker run -p8080:8080 --env-file .env example/dataload:0.0.1-SNAPSHOT``
+* push image in a public registry
+* Download config file from digital-ocean and move it in .kube dir using "config" name (check existence), than: 
+```
+kubectl --kubeconfig="k8s-1-21-5-do-0-fra1-1642090395986-kubeconfig.yaml" get nodes``
+kubectl  create namespace dataloadns
+kubectl  get namespaces
+cd ./k8s
+#Create secrets, data must be base64 encoded
+kubectl apply -f secret.yaml
+kubectl describe secret dataload-secret
+kubectl create secret generic dspwd --from-literal=springDatasourcePassword='springDatasourcePassword'
+kubectl create secret generic redpwd --from-literal=springRedisPassword='springRedisPassword'
+kubectl create secret generic mailpwd --from-literal=mailtrapPassword='mailtrapPassword'
 
-* 
+# deploy this pod in dataload namespace
+kubectl  apply -f dataload-pod.yaml -n dataloadns
+kubectl  get pod -n dataloadns
+kubectl  port-forward pods/dataload-pod -n dataloadns 8080:8080
+```
+Now pod is up and running, you can access it locally via a portforwarding
+```
+kubectl port-forward pods/dataload-pod -n dataloadns 8080:8080
+```
+Or install and configure ingress nginx controller
 
+Or release a loadbalancer pod
+```
+kubectl apply -f dataload-service.yaml -n dataloadns
+kubectl -n dataloadns get svc -w
+```
+pods can be deleted via:
+```kubectl delete -n dataloadns pod dataload-pod```
+
+NB: pod can be rolled out in scalable fashion using the dataload-deployments.yaml

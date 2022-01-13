@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dataload-pod
+  labels:
+    app: dataload
+spec:
+  containers:
+  - name: dataload
+    image: cmauri75/dataload:latest
+    env:
+      - name: springDatasourcePassword
+        valueFrom:
+          secretKeyRef:
+            name: dspwd
+            key: springDatasourcePassword
+      - name: springRedisPassword
+        valueFrom:
+          secretKeyRef:
+            name: redpwd
+            key: springRedisPassword
+      - name: mailtrapPassword
+        valueFrom:
+          secretKeyRef:
+            name: mailpwd
+            key: mailtrapPassword
+    ports:
+    - containerPort: 8080
